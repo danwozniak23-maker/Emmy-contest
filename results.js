@@ -24,7 +24,7 @@ async function loadResults() {
         const sheetListUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Sheet1`;
         
         // List all your judge names here - add more as needed
-        const judgeSheets = ['Staci']; // Add more judge names: ['Staci', 'Mike', 'Sarah', 'John']
+        const judgeSheets = ['Staci', 'Dan']; // Add more judge names as you create tabs
         const judgesData = [];
         
         // Fetch each judge's picks
