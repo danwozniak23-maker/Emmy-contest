@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emmy Awards Competition Results</title>
+    <link rel="stylesheet" href="results.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🏆 Emmy Awards Competition Results</h1>
+            <div class="refresh-info">
+                <span id="lastUpdated">Loading...</span>
+                <button id="refreshBtn" onclick="loadResults()">↻ Refresh</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div id="loadingMessage" class="loading-card">
+                <h2>Loading Results...</h2>
+                <p>Fetching the latest scores from Google Sheets</p>
+            </div>
+
+            <div id="resultsContainer" style="display: none;">
+                <!-- Results will be populated here -->
+            </div>
+
+            <div id="errorMessage" class="error-card" style="display: none;">
+                <h2>❌ Unable to Load Results</h2>
+                <p>There was an error loading the competition results. Please check your connection and try again.</p>
+                <button onclick="loadResults()">Try Again</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Emmy Awards Competition • Results update automatically from Google Sheets</p>
+        </div>
+    </footer>
+
+    <script src="results.js"></script>
+</body>
+</html>

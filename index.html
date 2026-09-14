@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emmy Awards Scorecard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🏆 Emmy Awards Scorecard</h1>
+            <div class="judge-name">
+                <label for="judgeName">Judge Name:</label>
+                <input type="text" id="judgeName" placeholder="Enter your name">
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <form id="emmyForm">
+                
+                <!-- Outstanding Drama Series -->
+                <div class="category-card">
+                    <h2>Outstanding Drama Series</h2>
+                    <div class="nominees">
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_series" value="The Diplomat"> "The Diplomat"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_series" value="The Gilded Age"> "The Gilded Age"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_series" value="A Knight of the Seven Kingdoms"> "A Knight of the Seven Kingdoms"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_series" value="Paradise"> "Paradise"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_series" value="The Pitt"> "The Pitt"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_series" value="Pluribus"> "Pluribus"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_series" value="Slow Horses"> "Slow Horses"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_series" value="Your Friends and Neighbors"> "Your Friends and Neighbors"</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outstanding Lead Actress in a Drama Series -->
+                <div class="category-card">
+                    <h2>Outstanding Lead Actress in a Drama Series</h2>
+                    <div class="nominees">
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_actress" value="Carrie Coon"> Carrie Coon, "The Gilded Age"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_actress" value="Chase Infiniti"> Chase Infiniti, "The Testaments"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_actress" value="Keri Russell"> Keri Russell, "The Diplomat"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_actress" value="Rhea Seehorn"> Rhea Seehorn, "Pluribus"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_actress" value="Zendaya"> Zendaya, "Euphoria"</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outstanding Lead Actor in a Drama Series -->
+                <div class="category-card">
+                    <h2>Outstanding Lead Actor in a Drama Series</h2>
+                    <div class="nominees">
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_actor" value="Sterling K. Brown"> Sterling K. Brown, "Paradise"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_actor" value="Gary Oldman"> Gary Oldman, "Slow Horses"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_actor" value="Mark Ruffalo"> Mark Ruffalo, "Task"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_actor" value="Rufus Sewell"> Rufus Sewell, "The Diplomat"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_actor" value="Noah Wyle"> Noah Wyle, "The Pitt"</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outstanding Supporting Actress in Drama Series -->
+                <div class="category-card">
+                    <h2>Outstanding Supporting Actress in Drama Series</h2>
+                    <div class="nominees">
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_supporting_actress" value="Taylor Dearden"> Taylor Dearden, "The Pitt"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_supporting_actress" value="Fiona Dourif"> Fiona Dourif, "The Pitt"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_supporting_actress" value="Allison Janney"> Allison Janney, "The Diplomat"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_supporting_actress" value="Katherine LaNasa"> Katherine LaNasa, "The Pitt"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_supporting_actress" value="Sepideh Moafi"> Sepideh Moafi, "The Pitt"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_supporting_actress" value="Julianne Nicholson"> Julianne Nicholson, "Paradise"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_supporting_actress" value="Karolina Wydra"> Karolina Wydra, "Pluribus"</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outstanding Supporting Actor in Drama Series -->
+                <div class="category-card">
+                    <h2>Outstanding Supporting Actor in Drama Series</h2>
+                    <div class="nominees">
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_supporting_actor" value="Patrick Ball"> Patrick Ball, "The Pitt"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_supporting_actor" value="Billy Crudup"> Billy Crudup, "The Morning Show"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_supporting_actor" value="Shawn Hatosy"> Shawn Hatosy, "The Pitt"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_supporting_actor" value="Gerran Howell"> Gerran Howell, "The Pitt"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_supporting_actor" value="Jack Lowden"> Jack Lowden, "Slow Horses"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_supporting_actor" value="Tom Pelphrey"> Tom Pelphrey, "Task"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="drama_supporting_actor" value="Carlos Manuel Vesga"> Carlos Manuel Vesga, "Pluribus"</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outstanding Comedy Series -->
+                <div class="category-card">
+                    <h2>Outstanding Comedy Series</h2>
+                    <div class="nominees">
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_series" value="Abbott Elementary"> "Abbott Elementary"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_series" value="The Bear"> "The Bear"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_series" value="Hacks"> "Hacks"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_series" value="Margo's Got Money Troubles"> "Margo's Got Money Troubles"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_series" value="Nobody Wants This"> "Nobody Wants This"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_series" value="Only Murders in the Building"> "Only Murders in the Building"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_series" value="Shrinking"> "Shrinking"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_series" value="Widow's Bay"> "Widow's Bay"</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outstanding Lead Actress in a Comedy Series -->
+                <div class="category-card">
+                    <h2>Outstanding Lead Actress in a Comedy Series</h2>
+                    <div class="nominees">
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_actress" value="Quinta Brunson"> Quinta Brunson, "Abbott Elementary"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_actress" value="Ayo Edebiri"> Ayo Edebiri, "The Bear"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_actress" value="Elle Fanning"> Elle Fanning, "Margo's Got Money Troubles"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_actress" value="Lisa Kudrow"> Lisa Kudrow, "The Comeback"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_actress" value="Jean Smart"> Jean Smart, "Hacks"</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outstanding Lead Actor in a Comedy Series -->
+                <div class="category-card">
+                    <h2>Outstanding Lead Actor in a Comedy Series</h2>
+                    <div class="nominees">
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_actor" value="Yahya Abdul Mateen II"> Yahya Abdul Mateen II, "Wonder Man"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_actor" value="Steve Carell"> Steve Carell, "Rooster"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_actor" value="Matthew Rhys"> Matthew Rhys, "Widow's Bay"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_actor" value="Jason Segel"> Jason Segel, "Shrinking"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_actor" value="Martin Short"> Martin Short, "Only Murders in the Building"</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outstanding Supporting Actress in a Comedy Series -->
+                <div class="category-card">
+                    <h2>Outstanding Supporting Actress in a Comedy Series</h2>
+                    <div class="nominees">
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_supporting_actress" value="Dale Dickey"> Dale Dickey, "Widow's Bay"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_supporting_actress" value="Hannah Einbinder"> Hannah Einbinder, "Hacks"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_supporting_actress" value="Janelle James"> Janelle James, "Abbott Elementary"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_supporting_actress" value="Kate O'Flynn"> Kate O'Flynn, "Widow's Bay"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_supporting_actress" value="Michelle Pfeiffer"> Michelle Pfeiffer, "Margo's Got Money Troubles"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_supporting_actress" value="Megan Stalter"> Megan Stalter, "Hacks"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_supporting_actress" value="Jessica Williams"> Jessica Williams, "Shrinking"</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outstanding Supporting Actor in a Comedy Series -->
+                <div class="category-card">
+                    <h2>Outstanding Supporting Actor in a Comedy Series</h2>
+                    <div class="nominees">
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_supporting_actor" value="Colman Domingo"> Colman Domingo, "The Four Seasons"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_supporting_actor" value="Paul W. Downs"> Paul W. Downs, "Hacks"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_supporting_actor" value="Harrison Ford"> Harrison Ford, "Shrinking"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_supporting_actor" value="Nick Offerman"> Nick Offerman, "Margo's Got Money Troubles"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_supporting_actor" value="Stephen Root"> Stephen Root, "Widow's Bay"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_supporting_actor" value="Michael Urie"> Michael Urie, "Shrinking"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="comedy_supporting_actor" value="Tyler James Williams"> Tyler James Williams, "Abbott Elementary"</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outstanding Limited or Anthology Series -->
+                <div class="category-card">
+                    <h2>Outstanding Limited or Anthology Series</h2>
+                    <div class="nominees">
+                        <div class="nominee">
+                            <label><input type="radio" name="limited_series" value="All Her Fault"> "All Her Fault"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="limited_series" value="The Beast In Me"> "The Beast In Me"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="limited_series" value="Beef"> "Beef"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="limited_series" value="DTF St. Louis"> "DTF St. Louis"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="limited_series" value="Love Story"> "Love Story: John F. Kennedy Jr. & Carolyn Bessette"</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outstanding Lead Actress in a Limited or Anthology Series or Movie -->
+                <div class="category-card">
+                    <h2>Outstanding Lead Actress in a Limited or Anthology Series or Movie</h2>
+                    <div class="nominees">
+                        <div class="nominee">
+                            <label><input type="radio" name="limited_actress" value="Claire Danes"> Claire Danes, "The Beast In Me"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="limited_actress" value="Sally Field"> Sally Field, "Remarkably Bright Creatures"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="limited_actress" value="Carey Mulligan"> Carey Mulligan, "Beef, Season 2"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="limited_actress" value="Sarah Pigeon"> Sarah Pigeon, "Love Story: John F. Kennedy Jr. & Carolyn Bessette"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="limited_actress" value="Sarah Snook"> Sarah Snook, "All Her Fault"</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outstanding Lead Actor in a Limited or Anthology Series or Movie -->
+                <div class="category-card">
+                    <h2>Outstanding Lead Actor in a Limited or Anthology Series or Movie</h2>
+                    <div class="nominees">
+                        <div class="nominee">
+                            <label><input type="radio" name="limited_actor" value="Riz Ahmed"> Riz Ahmed, "Bait"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="limited_actor" value="Jason Bateman"> Jason Bateman, "Black Rabbit"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="limited_actor" value="Charlie Hunnam"> Charlie Hunnam, "Monster: The Ed Gein Story"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="limited_actor" value="Oscar Isaac"> Oscar Isaac, "Beef"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="limited_actor" value="Matthew Rhys"> Matthew Rhys, "The Beast in Me"</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outstanding Variety Series -->
+                <div class="category-card">
+                    <h2>Outstanding Variety Series</h2>
+                    <div class="nominees">
+                        <div class="nominee">
+                            <label><input type="radio" name="variety_series" value="The Daily Show"> "The Daily Show"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="variety_series" value="Jimmy Kimmel Live!"> "Jimmy Kimmel Live!"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="variety_series" value="Last Week Tonight"> "Last Week Tonight With John Oliver"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="variety_series" value="The Late Show"> "The Late Show With Stephen Colbert"</label>
+                        </div>
+                        <div class="nominee">
+                            <label><input type="radio" name="variety_series" value="Saturday Night Live"> "Saturday Night Live"</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="submit-section">
+                    <button type="submit" id="submitBtn">Submit Scorecard</button>
+                    <div id="status" class="status-message"></div>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
