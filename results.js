@@ -124,9 +124,8 @@ function parseVerticalSheet(csv) {
             currentCategory = col1;
             categories.push(currentCategory);
         } else if (col1 && currentCategory && col2) {
-            // This is a nominee with a pick in column B
-            // Check for checkmark or actual selection
-            if (col2 === '✓' || col2 === 'x' || col2 === 'X' || col2.length > 0) {
+            // This nominee has something in column B - check what it is
+            if (col2 === 'Winner' || col2 === '✓' || col2 === 'x' || col2 === 'X' || col2.toLowerCase() === 'winner') {
                 picks[currentCategory] = col1; // The nominee they picked
             }
         }
