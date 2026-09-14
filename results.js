@@ -144,9 +144,15 @@ function calculateVerticalScores(judgesData, winnersData) {
         throw new Error('No judge data found');
     }
     
+    console.log('Starting score calculation...');
+    console.log('Winners data:', winnersData);
+    
     const judgeResults = [];
     
     judgesData.forEach(judge => {
+        console.log(`Calculating scores for ${judge.name}:`);
+        console.log('Judge picks:', judge.picks);
+        
         let correctPicks = 0;
         let totalCategories = 0;
         const categoryDetails = {};
@@ -156,12 +162,18 @@ function calculateVerticalScores(judgesData, winnersData) {
             const actualWinner = winnersData[category];
             totalCategories++;
             
+            console.log(`Category: ${category}`);
+            console.log(`Judge picked: "${pick}"`);
+            console.log(`Actual winner: "${actualWinner || 'TBD'}"`);
+            
             let isCorrect = false;
             if (actualWinner && actualWinner.trim() !== '') {
-                // Compare the judge's pick with the actual winner
-                isCorrect = pick.toLowerCase().trim() === actualWinner.toLowerCase().trim();
+                // Exact string match
+                isCorrect = pick.trim() === actualWinner.trim();
                 if (isCorrect) correctPicks++;
             }
+            
+            console.log(`Match: ${isCorrect ? 'CORRECT' : 'WRONG'}`);
             
             categoryDetails[category] = {
                 pick: pick,
@@ -171,6 +183,8 @@ function calculateVerticalScores(judgesData, winnersData) {
         });
         
         const percentage = totalCategories > 0 ? Math.round((correctPicks / totalCategories) * 100) : 0;
+        
+        console.log(`${judge.name} final score: ${correctPicks}/${totalCategories} = ${percentage}%`);
         
         judgeResults.push({
             name: judge.name,
