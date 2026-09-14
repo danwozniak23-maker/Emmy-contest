@@ -30,39 +30,57 @@ async function loadResults() {
         // Fetch each judge's picks
         for (const judgeName of judgeSheets) {
             try {
+                console.log(`Fetching data for ${judgeName}...`);
                 const judgeUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${judgeName}`;
                 const judgeResponse = await fetch(judgeUrl);
                 const judgeCSV = await judgeResponse.text();
                 
+                console.log(`${judgeName} CSV data:`, judgeCSV.substring(0, 500)); // First 500 chars
+                
                 if (judgeCSV && !judgeCSV.includes('Error') && !judgeCSV.includes('Invalid')) {
                     const judgeData = parseVerticalSheet(judgeCSV);
+                    console.log(`${judgeName} parsed data:`, judgeData);
+                    
                     if (judgeData.picks && Object.keys(judgeData.picks).length > 0) {
                         judgesData.push({
                             name: judgeName,
                             picks: judgeData.picks,
                             categories: judgeData.categories
                         });
+                    } else {
+                        console.log(`${judgeName} has no picks yet`);
                     }
+                } else {
+                    console.log(`${judgeName} returned error or invalid data`);
                 }
             } catch (err) {
-                console.log(`Could not load sheet for ${judgeName}:`, err);
+                console.error(`Could not load sheet for ${judgeName}:`, err);
             }
         }
         
         // Fetch Winners sheet (same structure as judge sheets, Column B has winners)
         let winnersData = {};
         try {
+            console.log('Fetching Winners data...');
             const winnersUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Winners`;
             const winnersResponse = await fetch(winnersUrl);
             const winnersCSV = await winnersResponse.text();
             
+            console.log('Winners CSV data:', winnersCSV.substring(0, 500));
+            
             if (!winnersCSV.includes('Error') && !winnersCSV.includes('Invalid')) {
                 const winnersSheet = parseVerticalSheet(winnersCSV);
                 winnersData = winnersSheet.picks; // Column B in Winners tab
+                console.log('Winners parsed data:', winnersData);
+            } else {
+                console.log('Winners sheet returned error or invalid data');
             }
         } catch (err) {
-            console.log('Winners sheet not found or not ready yet');
+            console.log('Winners sheet not found or not ready yet:', err);
         }
+        
+        console.log('Final judgesData:', judgesData);
+        console.log('Final winnersData:', winnersData);
         
         // Calculate scores
         const results = calculateVerticalScores(judgesData, winnersData);
@@ -80,9 +98,10 @@ async function loadResults() {
     } catch (error) {
         console.error('Error loading results:', error);
         
-        // Show error state
+        // Show error state with more details
         loadingMessage.style.display = 'none';
         errorMessage.style.display = 'block';
+        errorMessage.querySelector('p').textContent = `Error: ${error.message}. Check browser console for details.`;
     } finally {
         refreshBtn.disabled = false;
         refreshBtn.textContent = '↻ Refresh';
