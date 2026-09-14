@@ -114,6 +114,8 @@ function parseVerticalSheet(csv) {
     const categories = [];
     let currentCategory = '';
     
+    console.log('Parsing sheet data:', csv.substring(0, 1000)); // Debug: show raw data
+    
     for (const line of lines) {
         const columns = line.split(',').map(col => col.replace(/"/g, '').trim());
         const col1 = columns[0] || '';
@@ -123,14 +125,17 @@ function parseVerticalSheet(csv) {
         if (col1.startsWith('Outstanding')) {
             currentCategory = col1;
             categories.push(currentCategory);
-        } else if (col1 && currentCategory && col2) {
-            // This nominee has something in column B - check what it is
-            if (col2 === 'Winner' || col2 === '✓' || col2 === 'x' || col2 === 'X' || col2.toLowerCase() === 'winner') {
-                picks[currentCategory] = col1; // The nominee they picked
+            console.log('Found category:', currentCategory); // Debug
+        } else if (col1 && currentCategory) {
+            // Only count as a pick if Column B has specific values
+            if (col2 === 'Winner' || col2 === '✓' || col2 === 'X') {
+                picks[currentCategory] = col1;
+                console.log(`Pick found - Category: ${currentCategory}, Nominee: ${col1}, Marker: ${col2}`); // Debug
             }
         }
     }
     
+    console.log('Final picks object:', picks); // Debug
     return { picks, categories };
 }
 
