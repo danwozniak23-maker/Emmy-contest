@@ -1,5 +1,5 @@
 // Configure your Google Sheet ID here
-const SHEET_ID = 'YOUR_GOOGLE_SHEET_ID_HERE';
+const SHEET_ID = '1TUbgqecRxGAJT8ckPPq7PsbmVMpvlFa4LPGqVdh-wuU';
 
 document.addEventListener('DOMContentLoaded', function() {
     loadResults();
@@ -20,22 +20,52 @@ async function loadResults() {
     refreshBtn.textContent = '↻ Loading...';
     
     try {
-        // Fetch judges data (Sheet1 or "Judges")
-        const judgesUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Judges`;
-        const judgesResponse = await fetch(judgesUrl);
-        const judgesCSV = await judgesResponse.text();
+        // Get list of all sheet names first to find judge sheets
+        const sheetListUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Sheet1`;
         
-        // Fetch winners data (Sheet2 or "Winners") 
-        const winnersUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Winners`;
-        const winnersResponse = await fetch(winnersUrl);
-        const winnersCSV = await winnersResponse.text();
+        // List all your judge names here - add more as needed
+        const judgeSheets = ['Staci']; // Add more judge names: ['Staci', 'Mike', 'Sarah', 'John']
+        const judgesData = [];
         
-        // Parse the data
-        const judgesData = parseCSV(judgesCSV);
-        const winnersData = parseCSV(winnersCSV);
+        // Fetch each judge's picks
+        for (const judgeName of judgeSheets) {
+            try {
+                const judgeUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${judgeName}`;
+                const judgeResponse = await fetch(judgeUrl);
+                const judgeCSV = await judgeResponse.text();
+                
+                if (judgeCSV && !judgeCSV.includes('Error') && !judgeCSV.includes('Invalid')) {
+                    const judgeData = parseVerticalSheet(judgeCSV);
+                    if (judgeData.picks && Object.keys(judgeData.picks).length > 0) {
+                        judgesData.push({
+                            name: judgeName,
+                            picks: judgeData.picks,
+                            categories: judgeData.categories
+                        });
+                    }
+                }
+            } catch (err) {
+                console.log(`Could not load sheet for ${judgeName}:`, err);
+            }
+        }
+        
+        // Fetch Winners sheet (same structure as judge sheets, Column B has winners)
+        let winnersData = {};
+        try {
+            const winnersUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Winners`;
+            const winnersResponse = await fetch(winnersUrl);
+            const winnersCSV = await winnersResponse.text();
+            
+            if (!winnersCSV.includes('Error') && !winnersCSV.includes('Invalid')) {
+                const winnersSheet = parseVerticalSheet(winnersCSV);
+                winnersData = winnersSheet.picks; // Column B in Winners tab
+            }
+        } catch (err) {
+            console.log('Winners sheet not found or not ready yet');
+        }
         
         // Calculate scores
-        const results = calculateScores(judgesData, winnersData);
+        const results = calculateVerticalScores(judgesData, winnersData);
         
         // Display results
         displayResults(results);
@@ -53,86 +83,74 @@ async function loadResults() {
         // Show error state
         loadingMessage.style.display = 'none';
         errorMessage.style.display = 'block';
-        
-        if (error.message.includes('SHEET_ID')) {
-            errorMessage.querySelector('p').textContent = 'Google Sheet ID not configured. Please update the SHEET_ID in results.js';
-        }
     } finally {
         refreshBtn.disabled = false;
         refreshBtn.textContent = '↻ Refresh';
     }
 }
 
-function parseCSV(csv) {
+function parseVerticalSheet(csv) {
     const lines = csv.split('\n').filter(line => line.trim());
-    if (lines.length < 2) return [];
+    const picks = {};
+    const categories = [];
+    let currentCategory = '';
     
-    const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim());
-    const data = [];
-    
-    for (let i = 1; i < lines.length; i++) {
-        const values = lines[i].split(',').map(v => v.replace(/"/g, '').trim());
-        if (values.length >= headers.length) {
-            const row = {};
-            headers.forEach((header, index) => {
-                row[header] = values[index] || '';
-            });
-            data.push(row);
+    for (const line of lines) {
+        const columns = line.split(',').map(col => col.replace(/"/g, '').trim());
+        const col1 = columns[0] || '';
+        const col2 = columns[1] || '';
+        
+        // Check if this is a category header (starts with "Outstanding")
+        if (col1.startsWith('Outstanding')) {
+            currentCategory = col1;
+            categories.push(currentCategory);
+        } else if (col1 && currentCategory && col2) {
+            // This is a nominee with a pick in column B
+            // Check for checkmark or actual selection
+            if (col2 === '✓' || col2 === 'x' || col2 === 'X' || col2.length > 0) {
+                picks[currentCategory] = col1; // The nominee they picked
+            }
         }
     }
     
-    return data;
+    return { picks, categories };
 }
 
-function calculateScores(judgesData, winnersData) {
-    if (!judgesData.length || !winnersData.length) {
-        throw new Error('No data found in sheets');
+function calculateVerticalScores(judgesData, winnersData) {
+    if (!judgesData.length) {
+        throw new Error('No judge data found');
     }
     
-    // Create winners lookup (assuming winners sheet has Category and Winner columns)
-    const winners = {};
-    winnersData.forEach(row => {
-        if (row.Category && row.Winner) {
-            winners[row.Category.toLowerCase().replace(/\s+/g, '_')] = row.Winner;
-        }
-    });
-    
-    // Calculate scores for each judge
     const judgeResults = [];
     
     judgesData.forEach(judge => {
-        const judgeName = judge.Judge || judge.Name || 'Unknown Judge';
-        if (!judgeName || judgeName === 'Unknown Judge') return;
-        
         let correctPicks = 0;
         let totalCategories = 0;
         const categoryDetails = {};
         
-        // Check each category column
-        Object.keys(judge).forEach(column => {
-            if (column.toLowerCase() === 'judge' || column.toLowerCase() === 'name') return;
+        // Check each category where judge made a pick
+        Object.entries(judge.picks).forEach(([category, pick]) => {
+            const actualWinner = winnersData[category];
+            totalCategories++;
             
-            const categoryKey = column.toLowerCase().replace(/\s+/g, '_');
-            const judgesPick = judge[column];
-            const actualWinner = winners[categoryKey];
-            
-            if (judgesPick && actualWinner) {
-                totalCategories++;
-                const isCorrect = judgesPick.trim().toLowerCase() === actualWinner.trim().toLowerCase();
+            let isCorrect = false;
+            if (actualWinner && actualWinner.trim() !== '') {
+                // Compare the judge's pick with the actual winner
+                isCorrect = pick.toLowerCase().trim() === actualWinner.toLowerCase().trim();
                 if (isCorrect) correctPicks++;
-                
-                categoryDetails[column] = {
-                    pick: judgesPick,
-                    winner: actualWinner,
-                    correct: isCorrect
-                };
             }
+            
+            categoryDetails[category] = {
+                pick: pick,
+                winner: actualWinner || 'TBD',
+                correct: isCorrect && actualWinner
+            };
         });
         
         const percentage = totalCategories > 0 ? Math.round((correctPicks / totalCategories) * 100) : 0;
         
         judgeResults.push({
-            name: judgeName,
+            name: judge.name,
             score: percentage,
             correctPicks,
             totalCategories,
@@ -145,7 +163,7 @@ function calculateScores(judgesData, winnersData) {
     
     return {
         judges: judgeResults,
-        categories: Object.keys(winners)
+        categories: judgesData[0]?.categories || []
     };
 }
 
